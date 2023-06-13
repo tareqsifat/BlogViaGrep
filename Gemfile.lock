@@ -111,9 +111,23 @@ GEM
       mustermann-grape (~> 1.0.0)
       rack (>= 1.3.0, < 3)
       rack-accept
+    grape-api-generator (0.1.0)
+      grape (>= 0.11.0)
+      grape-entity
+      grape-kaminari
+      grape-swagger
+      hashie-forbidden_attributes
     grape-entity (1.0.0)
       activesupport (>= 3.0.0)
       multi_json (>= 1.3.2)
+    grape-kaminari (0.4.5)
+      grape (>= 1.6.1)
+      kaminari-grape
+    grape-swagger (1.6.1)
+      grape (~> 1.3)
+    hashie (5.0.0)
+    hashie-forbidden_attributes (0.1.1)
+      hashie (>= 3.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.6)
@@ -125,6 +139,10 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    kaminari-core (1.2.2)
+    kaminari-grape (1.0.1)
+      grape
+      kaminari-core (~> 1.0)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -247,6 +265,7 @@ DEPENDENCIES
   capybara
   debug
   grape (~> 1.7)
+  grape-api-generator (~> 0.1.0)
   grape-entity (~> 1.0)
   importmap-rails
   jbuilder

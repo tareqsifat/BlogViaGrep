@@ -76,3 +76,5 @@ gem "mysql2", "~> 0.5.5"
 gem "grape", "~> 1.7"
 
 gem "grape-entity", "~> 1.0"
+
+gem 'grape-api-generator', '~> 0.1.0'
