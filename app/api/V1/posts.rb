@@ -40,12 +40,19 @@ module V1
             desc 'Update a post'
             params do
                 requires :id, type: Integer, desc: 'Post ID'
-                optional :title, type: String, desc: 'Post title'
-                optional :content, type: String, desc: 'Post content'
+                requires :title, type: String, desc: 'Post title'
+                requires :body, type: String, desc: 'Post content'
+                optional :user_id, type: String 
+                optional :category_id, type: String 
+                optional :sub_category_id, type: String
             end
             put ':id' do
                 post = Post.find(params[:id])
-                post.update(title: params[:title], content: params[:content])
+                post.update(title: params[:title],
+                    body: params[:body],
+                    user_id: params[:user_id],
+                    category_id: params[:category_id],
+                    sub_category_id: params[:sub_category_id])
                 present post, with: V1::Entities::PostEntity
             end
 
