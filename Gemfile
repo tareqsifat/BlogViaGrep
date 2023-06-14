@@ -78,3 +78,5 @@ gem "grape", "~> 1.7"
 gem "grape-entity", "~> 1.0"
 
 gem 'grape-api-generator', '~> 0.1.0'
+
+gem "activestorage", "~> 7.0"

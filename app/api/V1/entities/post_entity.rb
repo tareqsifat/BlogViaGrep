@@ -8,7 +8,13 @@ module V1
       expose :title
       expose :slug
       expose :body
-      expose :image
+      expose :image_url, if: ->(post, _) { post.image.attached? }
+
+      def image_url
+        if object.image.attached?
+          Rails.application.routes.url_helpers.rails_blob_path(object.image, only_path: true)
+        end
+      end
     end
   end
 end

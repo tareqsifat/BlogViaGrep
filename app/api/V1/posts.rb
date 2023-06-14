@@ -8,7 +8,7 @@ module V1
             get do
                 posts = Post.order(id: :desc)
                 present posts, with: V1::Entities::PostEntity
-              end
+            end
 
             desc 'Get a specific post'
             params do
@@ -27,14 +27,20 @@ module V1
                 optional :user_id, type: String 
                 optional :category_id, type: String 
                 optional :sub_category_id, type: String 
+                optional :image, type: File, desc: 'Post image'
             end
             post do
-                post = Post.create(title: params[:title],
+                new_post = Post.create!(title: params[:title],
                                    body: params[:body],
                                    user_id: params[:user_id],
                                    category_id: params[:category_id],
-                                   sub_category_id: params[:sub_category_id])
-                present post, with: V1::Entities::PostEntity
+                                   sub_category_id: params[:sub_category_id]
+                                )
+                new_post.image.attach(io: params[:image][:tempfile], filename: params[:image][:filename]) if params[:image]
+
+                # new_post.image.attach(params[:image]) if params[:image].is_a?(ActionDispatch::Http::UploadedFile)
+                present new_post, with: V1::Entities::PostEntity
+                # params
             end
 
             desc 'Update a post'
@@ -45,6 +51,7 @@ module V1
                 optional :user_id, type: String 
                 optional :category_id, type: String 
                 optional :sub_category_id, type: String
+                optional :image, type: File, desc: 'Post image'
             end
             put ':id' do
                 post = Post.find(params[:id])
