@@ -38,9 +38,7 @@ module V1
                                 )
                 new_post.image.attach(io: params[:image][:tempfile], filename: params[:image][:filename]) if params[:image]
 
-                # new_post.image.attach(params[:image]) if params[:image].is_a?(ActionDispatch::Http::UploadedFile)
                 present new_post, with: V1::Entities::PostEntity
-                # params
             end
 
             desc 'Update a post'
@@ -55,11 +53,13 @@ module V1
             end
             put ':id' do
                 post = Post.find(params[:id])
-                post.update(title: params[:title],
+                post.update!(title: params[:title],
                     body: params[:body],
                     user_id: params[:user_id],
                     category_id: params[:category_id],
                     sub_category_id: params[:sub_category_id])
+                post.image.attach(io: params[:image][:tempfile], filename: params[:image][:filename]) if params[:image]
+
                 present post, with: V1::Entities::PostEntity
             end
 
@@ -68,8 +68,10 @@ module V1
                 requires :id, type: Integer, desc: 'Post ID'
             end
             delete ':id' do
-                post = Post.find(params[:id])
-                post.destroy
+                post_for_felete = Post.find(params[:id])
+                # postForDelete = postForDelete
+                post_for_felete.destroy
+                status 200
             end
         end
     end
